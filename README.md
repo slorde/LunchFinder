@@ -10,3 +10,5 @@ The main search class is the SearchRestaurants.java
 
 To execute tests -> Run as junit test on the tests folder
 To execute the project panel -> Run as java application on the project name
+
+in folder dist there is a runnable for the project
