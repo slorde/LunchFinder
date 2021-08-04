@@ -94,18 +94,21 @@ class LunchFinderApplicationTests {
 	@Test
 	void shouldInforRateBetween1and5() throws Exception {
 		mvc.perform(get("/restaurants?rating=10&distance=10&price=50").contentType(MediaType.APPLICATION_JSON))
-				.andExpect(status().isBadRequest());
+				.andExpect(status().isBadRequest())
+				.andExpect(jsonPath("$.message").value("Customer Rating should be between 1 and 5"));
 	}
 
 	@Test
 	void shouldInforDistanceBetween1and10() throws Exception {
 		mvc.perform(get("/restaurants?rating=1&distance=11&price=50").contentType(MediaType.APPLICATION_JSON))
-				.andExpect(status().isBadRequest());
+				.andExpect(status().isBadRequest())
+				.andExpect(jsonPath("$.message").value("Distance should be between 1 mile and 10 miles"));
 	}
 
 	@Test
 	void shouldInforPriceBetween10and50() throws Exception {
 		mvc.perform(get("/restaurants?rating=1&distance=10&price=51").contentType(MediaType.APPLICATION_JSON))
-				.andExpect(status().isBadRequest());
+				.andExpect(status().isBadRequest())
+				.andExpect(jsonPath("$.message").value("Price should be between $10 and $50"));
 	}
 }

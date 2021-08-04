@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,12 +26,8 @@ public class RestaurantController {
 			@RequestParam(required = false) Integer distance, @RequestParam(required = false) Integer price,
 			@RequestParam(required = false) Integer rating, @RequestParam(required = false) String cuisineName) {
 	
-		try {
-			List<Restaurant> restaurants = service.find(name, rating, distance, price, cuisineName);
-			List<RestaurantDTO> dto = restaurants.stream().map(r -> new RestaurantDTO(r)).collect(Collectors.toList());
-			return ResponseEntity.ok(dto);
-		} catch(RuntimeException e) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-		}
+		List<Restaurant> restaurants = service.find(name, rating, distance, price, cuisineName);
+		List<RestaurantDTO> dto = restaurants.stream().map(r -> new RestaurantDTO(r)).collect(Collectors.toList());
+		return ResponseEntity.ok(dto);
 	}
 }
